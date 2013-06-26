@@ -1,4 +1,4 @@
 gist
 ====
 
-big framework resource for Gist [a simple way to share snippets and pastes with others]
+big framework resource for gists [a simple way to share snippets and pastes with others]
