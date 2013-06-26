@@ -3,11 +3,12 @@ var gist = resource.define('gist');
 
 gist.schema.description = 'big resource for creating gists'
 
+
 // gist property definitions
 
 gist.property('description', { 
 	description: 'gist description',
-	type: 'string' 
+	type: 'string'
 });
 
 gist.property('public', {
@@ -37,33 +38,14 @@ gist.property('files', {
 });
 
 
-// gist method definitions 
-// > http://ajaxorg.github.io/node-github/#gists
-
-//gist.method('checkStar');
-//gist.method('create');
-//gist.method('delete');
-//gist.method('deleteStar');
-//gist.method('edit');
-//gist.method('fork');
-//gist.method('get');
-//gist.method('getAll');
-//gist.method('getFromUser');
-//gist.method('public');
-//gist.method('star');
-//gist.method('starred');
-gist.method('init', init, { description: "init gist resource" });
-
-
-// gist persistence model
-
-gist.persist('memory');
-
-
 // gist init - will be called automatically in future
 // > https://github.com/bigcompany/resource/issues/21
+// Note: 
+//	It would be great to be able to selectively enable 
+//	resource features, as some people will want to use
+//	only the schema, others will want views, etc...
 
-function init(options, callback) {
+var init = function(options, callback) {
 	var async = require('async');
 	async.parallel([
 		// setup .view convention
@@ -91,6 +73,30 @@ function init(options, callback) {
 			return callback(null);
 		}], callback);
 }
+
+
+// gist method definitions 
+// > http://ajaxorg.github.io/node-github/#gists
+
+//gist.method('checkStar');
+//gist.method('create');
+//gist.method('delete');
+//gist.method('deleteStar');
+//gist.method('edit');
+//gist.method('fork');
+//gist.method('get');
+//gist.method('getAll');
+//gist.method('getFromUser');
+//gist.method('public');
+//gist.method('star');
+//gist.method('starred');
+gist.method('init', init, { description: "init gist resource" });
+
+
+// gist persistence model
+
+gist.persist('memory');
+
 
 gist.dependencies = {
 	'async': '*'
