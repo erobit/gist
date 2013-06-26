@@ -7,34 +7,20 @@ gist.schema.description = 'big resource for creating gists'
 // gist property definitions
 
 gist.property('description', { 
-	description: 'gist description',
-	type: 'string'
+	"description": "gist description",
+	"type": "string"
 });
 
 gist.property('public', {
-	description: 'gist privacy setting',
-	type: 'boolean',
-	required: true
+	"description": "gist privacy setting",
+	"type": "boolean",
+	"required": true
 });
 
 gist.property('files', {
-	description: 'files that make up this gist',
-	type: 'array',
-	items: {
-		description: 'file',
-		type: 'object',
-		properties: {
-			filename: {
-				type: 'string',
-				required: true
-			},
-			content: {
-				type: 'string',
-				required: true
-			}
-		},
-		required: true,
-		default: []
+	"description": "files that make up this gist",
+	"type": "object",
+	"required": true
 });
 
 
@@ -61,13 +47,13 @@ var init = function(options, callback) {
 		function(callback) {
 			var user = resource.use('user');
 			user.property('gists', {
-				description: 'user gists',
-				type: 'array',
-				items: {
-					type: 'string',
-					description: 'gist id'
+				"description": "user gists",
+				"type": "array",
+				"items": {
+					"type": "string",
+					"description": "gist id"
 				},
-				default: []
+				"default": []
 			});
 			user.persist('memory');
 			return callback(null);
