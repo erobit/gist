@@ -1,7 +1,7 @@
 var resource = require('resource');
 var gist = resource.define('gist');
 
-gist.schema.description = 'big resource for creating gists'
+gist.schema.description = 'a resource for creating gists'
 
 
 // gist property definitions
