@@ -36,7 +36,7 @@ var start = function(options, callback) {
       var view = resource.use('view');
       view.create({ path: __dirname + '/view' }, function(err, _view) {
           if (err) { return callback(err); }
-          creature.view = _view;
+          gist.view = _view;
           http.app.use(view.middle({view: _view, prefix: 'gist'}));
           return callback(null);
       });
