@@ -23,6 +23,41 @@ gist.property('files', {
 	"required": true
 });
 
+
+// gist start - will be called automatically in future
+// > https://github.com/bigcompany/resource/issues/21
+
+var start = function(options, callback) {
+	var async = require('async');
+	async.parallel([
+    // setup .view convention
+    function(callback) {
+      var view = resource.use('view');
+      view.create({ path: __dirname + '/view' }, function(err, _view) {
+          if (err) { return callback(err); }
+          creature.view = _view;
+          http.app.use(view.middle({view: _view, prefix: 'creature'}));
+          return callback(null);
+      });
+    },
+		// add gists property to user resource
+		function(callback) {
+			var user = resource.use('user');
+			user.property('gists', {
+				"description": "user gists",
+				"type": "array",
+				"items": {
+					"type": "string",
+					"description": "gist id"
+				},
+				"default": []
+			});
+			user.persist('memory');
+			return callback(null);
+		}], callback);
+}
+
+
 // gist method definitions 
 // > http://ajaxorg.github.io/node-github/#gists
 
@@ -38,6 +73,7 @@ gist.property('files', {
 //gist.method('public');
 //gist.method('star');
 //gist.method('starred');
+gist.method('start', start, { description: "start gist resource" });
 
 
 // gist persistence model
@@ -46,7 +82,7 @@ gist.persist('memory');
 
 
 gist.dependencies = {
-//	'async': '*'
+	'async': '*'
 };
 
 exports.gist = gist;
