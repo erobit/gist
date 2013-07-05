@@ -23,44 +23,6 @@ gist.property('files', {
 	"required": true
 });
 
-
-// gist init - will be called automatically in future
-// > https://github.com/bigcompany/resource/issues/21
-// Note: 
-//	It would be great to be able to selectively enable 
-//	resource features, as some people will want to use
-//	only the schema, others will want views, etc...
-
-var init = function(options, callback) {
-	var async = require('async');
-	async.parallel([
-		// setup .view convention
-		function(callback) {
-			var view = resource.use('view');
-			view.create({path: __dirname + '/view' }, function(err, _view) {
-				if(err) { return callback(err); }
-				gist.view = _view;
-				return callback(null);
-			});
-		},
-		// add gists property to user resource
-		function(callback) {
-			var user = resource.use('user');
-			user.property('gists', {
-				"description": "user gists",
-				"type": "array",
-				"items": {
-					"type": "string",
-					"description": "gist id"
-				},
-				"default": []
-			});
-			user.persist('memory');
-			return callback(null);
-		}], callback);
-}
-
-
 // gist method definitions 
 // > http://ajaxorg.github.io/node-github/#gists
 
@@ -76,7 +38,6 @@ var init = function(options, callback) {
 //gist.method('public');
 //gist.method('star');
 //gist.method('starred');
-gist.method('init', init, { description: "init gist resource" });
 
 
 // gist persistence model
@@ -85,7 +46,7 @@ gist.persist('memory');
 
 
 gist.dependencies = {
-	'async': '*'
+//	'async': '*'
 };
 
 exports.gist = gist;
